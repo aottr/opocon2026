@@ -1,0 +1,35 @@
+baseURL = 'https://opocon.gay/'
+languageCode = 'en-us'
+title = 'Opocon'
+disableKinds = ['taxonomy', 'term']
+
+[params]
+  description = 'Opocon - Cult of the Opo'
+  tagline = 'Cult of the Opo'
+  year = '2026'
+  when = '11–15 June 2026'
+  where = 'Freizeithaus Petershof, Erbach, DE'
+  countdown_intro = 'Cult of the Opo is starting in...'
+  countdown_dates = 'from <strong>Thursday 11th – Monday 15th June</strong>.'
+  countdown_venue = 'At the Freizeithaus Petershof – Erbach, Germany'
+  countdown_done = 'Cult of the Opo is here.'
+  social_mastodon = ''
+  social_bluesky = ''
+  email = 'hello@opocon.example'
+  # Hero banner (static/img/whoreship.webp + fallbacks)
+  hero_banner_alt = 'Opocon - convention artwork'
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+# Standalone images + attributes: put the class on the line *below* the image (Hugo Goldmark).
+# Example:
+#   ![Alt text](/images/photo.jpg)
+#   {.align-left}
+# With wrapStandAloneImageWithinParagraph true, attributes attach to <p>, not <img>.
+[markup.goldmark.parser]
+  wrapStandAloneImageWithinParagraph = false
+
+[markup.goldmark.parser.attribute]
+  block = true
+  title = true

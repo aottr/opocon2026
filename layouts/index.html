@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "en" }}">
+<head>
+{{ partial "head.html" . }}
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="ritual-ring ritual-ring--1" aria-hidden="true"></div>
+  <div class="ritual-ring ritual-ring--2" aria-hidden="true"></div>
+
+  {{ partial "nav.html" . }}
+
+  <main id="main" class="main">
+    <section class="hero-banner">
+      <picture>
+        <source
+          type="image/webp"
+          srcset="{{ "img/whoreship-640.webp" | relURL }} 640w, {{ "img/whoreship.webp" | relURL }} 737w"
+          sizes="(max-width: 72rem) 100vw, 72rem">
+        <img
+          class="hero-banner__img"
+          src="{{ "img/whoreship.png" | relURL }}"
+          width="737"
+          height="886"
+          alt="{{ .Site.Params.hero_banner_alt }}"
+          decoding="async"
+          fetchpriority="high"
+          loading="eager">
+      </picture>
+    </section>
+
+    <section class="home-countdown" aria-labelledby="countdown-intro">
+      <p id="countdown-intro" class="home-countdown__intro">{{ .Site.Params.countdown_intro }}</p>
+      <div class="countdown" data-countdown role="timer" aria-live="polite" aria-atomic="true">
+        <div class="countdown__grid" data-countdown-grid>
+          <div class="countdown__unit">
+            <span class="countdown__value" data-countdown-days>—</span>
+            <span class="countdown__label">Days</span>
+          </div>
+          <div class="countdown__sep" aria-hidden="true">:</div>
+          <div class="countdown__unit">
+            <span class="countdown__value" data-countdown-hours>—</span>
+            <span class="countdown__label">Hours</span>
+          </div>
+          <div class="countdown__sep" aria-hidden="true">:</div>
+          <div class="countdown__unit">
+            <span class="countdown__value" data-countdown-minutes>—</span>
+            <span class="countdown__label">Minutes</span>
+          </div>
+          <div class="countdown__sep" aria-hidden="true">:</div>
+          <div class="countdown__unit">
+            <span class="countdown__value" data-countdown-seconds>—</span>
+            <span class="countdown__label">Seconds</span>
+          </div>
+        </div>
+        <p class="countdown__done" data-countdown-done hidden>{{ .Site.Params.countdown_done }}</p>
+      </div>
+      <p class="home-countdown__meta">{{ .Site.Params.countdown_dates | safeHTML }}</p>
+      <p class="home-countdown__meta">{{ .Site.Params.countdown_venue }}</p>
+    </section>
+
+    <!-- <section class="card card--content">
+      <div class="card__inner prose">
+        {{ .Content }}
+      </div>
+    </section> -->
+
+  </main>
+
+  {{ partial "footer.html" . }}
+</body>
+</html>

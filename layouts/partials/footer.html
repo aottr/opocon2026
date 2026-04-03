@@ -1,0 +1,8 @@
+  <footer class="site-footer">
+    <p class="footer-verse">The cult of the Opo remembers. See you at {{ .Site.Title }}.</p>
+    <p class="footer-copy">&copy; {{ now.Year }} {{ .Site.Title }}.</p>
+  </footer>
+  <script src="{{ "js/nav.js" | relURL }}" defer></script>
+  {{ if .IsHome }}
+  <script src="{{ "js/countdown.js" | relURL }}" defer></script>
+  {{ end }}

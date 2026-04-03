@@ -1,0 +1,27 @@
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" aria-label="Primary">
+    <div class="site-nav__inner">
+      <a class="site-nav__brand" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+      <ul class="site-nav__list">
+        <li class="site-nav__item site-nav__item--dropdown">
+          <button type="button" class="site-nav__dropdown-btn" id="site-nav-info" aria-expanded="false" aria-haspopup="true" aria-controls="site-nav-info-menu">
+            Info
+          </button>
+          <ul id="site-nav-info-menu" class="site-nav__dropdown" role="menu" aria-labelledby="site-nav-info">
+            <li role="none"><a role="menuitem" href="{{ "venue-accommodation/" | relURL }}">Venue &amp; Accommodation</a></li>
+            <li role="none"><a role="menuitem" href="{{ "foods-drinks/" | relURL }}">Foods &amp; Drinks</a></li>
+            <li role="none"><a role="menuitem" href="{{ "travel-guide/" | relURL }}">Travel Guide</a></li>
+            <li role="none"><a role="menuitem" href="{{ "prices/" | relURL }}">Prices</a></li>
+            <!-- <li role="none"><a role="menuitem" href="{{ "charity/" | relURL }}">Charity</a></li>
+            <li role="none"><a role="menuitem" href="{{ "rules/" | relURL }}">Rules</a></li> -->
+          </ul>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="{{ "activities/" | relURL }}">Activities</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="{{ "livestream/" | relURL }}">Livestream</a>
+        </li>
+      </ul>
+    </div>
+  </nav>

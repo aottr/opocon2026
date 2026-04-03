@@ -1,0 +1,1406 @@
+/* Opocon — dark stone + purple (aligned with backdrop art) */
+:root {
+  --void: #0c0b0f;
+  --depth: #131218;
+  --stone: #1a191f;
+  --wine: #16151c;
+  --accent: #6b5290;
+  --accent-bright: #9b82c4;
+  --accent-deep: #3d2d55;
+  --accent-glow: rgba(120, 95, 170, 0.45);
+  /* Legacy names (buttons / links) → purple */
+  --blood: #5a4580;
+  --blood-bright: #8b72b8;
+  --bone: #ebe8f0;
+  --bone-dim: #9e96aa;
+  /* Nav bar: between bone and bone-dim for readability */
+  --nav-item: #c9c4d4;
+  --nav-dropdown-fg: #f0eef5;
+  --gold: #c4b87a;
+  --gold-dim: #8a8048;
+  --shadow: rgba(0, 0, 0, 0.55);
+  /* Parchment (cards): ink + muted purple headings */
+  --parchment-ink: #262028;
+  --parchment-ink-muted: #5c5565;
+  --parchment-accent: #5a4a6e;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 200;
+  padding: 0.5rem 1rem;
+  font-family: Cinzel, serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bone);
+  background: var(--accent-bright);
+  border: 1px solid rgba(243, 230, 216, 0.2);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(20, 18, 26, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(110, 85, 155, 0.35);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.site-nav__inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0.65rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+}
+
+.site-nav__brand {
+  font-family: Cinzel, serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone);
+  text-decoration: none;
+}
+
+.site-nav__brand:hover {
+  color: var(--gold);
+}
+
+.site-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav__item {
+  position: relative;
+}
+
+.site-nav__link {
+  display: inline-block;
+  font-family: Cinzel, serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nav-item);
+  text-decoration: none;
+  padding: 0.45rem 0.65rem;
+  border-radius: 2px;
+}
+
+.site-nav__link:hover,
+.site-nav__link:focus-visible {
+  color: var(--bone);
+  background: rgba(110, 85, 155, 0.15);
+  outline: none;
+}
+
+.site-nav__dropdown-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: Cinzel, serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nav-item);
+  padding: 0.45rem 0.65rem;
+  border-radius: 2px;
+}
+
+.site-nav__dropdown-btn::after {
+  content: " ▾";
+  font-size: 0.7em;
+  opacity: 0.92;
+  margin-left: 0.15em;
+}
+
+.site-nav__item--dropdown:hover .site-nav__dropdown-btn,
+.site-nav__item--dropdown:focus-within .site-nav__dropdown-btn {
+  color: var(--bone);
+  background: rgba(110, 85, 155, 0.2);
+}
+
+.site-nav__item--dropdown:hover .site-nav__dropdown-btn::after,
+.site-nav__item--dropdown:focus-within .site-nav__dropdown-btn::after {
+  content: " ▴";
+}
+
+.site-nav__item--dropdown .site-nav__dropdown {
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  min-width: 15rem;
+  margin: 0;
+  padding: 0.4rem 0;
+  list-style: none;
+  background: linear-gradient(145deg, rgba(38, 32, 52, 0.98) 0%, rgba(22, 20, 30, 0.99) 100%);
+  border: 1px solid rgba(110, 85, 155, 0.45);
+  border-radius: 4px;
+  box-shadow:
+    0 12px 32px var(--shadow),
+    inset 0 1px 0 rgba(243, 230, 216, 0.06);
+  z-index: 60;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.12s ease,
+    visibility 0.12s ease,
+    transform 0.12s ease;
+}
+
+.site-nav__item--dropdown:hover .site-nav__dropdown,
+.site-nav__item--dropdown:focus-within .site-nav__dropdown {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.site-nav__dropdown li {
+  margin: 0;
+}
+
+.site-nav__dropdown a {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 0.92rem;
+  color: var(--nav-dropdown-fg);
+  text-decoration: none;
+}
+
+.site-nav__dropdown a:hover,
+.site-nav__dropdown a:focus-visible {
+  background: rgba(110, 85, 155, 0.22);
+  outline: none;
+}
+
+.main--page {
+  padding-top: 0.5rem;
+}
+
+.card--page {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-title {
+  font-family: Cinzel, serif;
+  font-size: clamp(1.35rem, 4vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(110, 85, 155, 0.25);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  color: var(--bone);
+  /* Base color shows through transparent top of backdrop.webp (body::before) */
+  background-color: #0f0e12;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(60, 40, 95, 0.45) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 50%, rgba(35, 30, 48, 0.55) 0%, transparent 45%),
+    radial-gradient(ellipse 60% 40% at 0% 80%, rgba(28, 24, 38, 0.5) 0%, transparent 50%),
+    linear-gradient(180deg, var(--void) 0%, var(--depth) 40%, #0f0e12 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Fixed bottom scene: PNG/WebP top is transparent → body gradients visible above */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("../img/backdrop.webp");
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  max-width: 100vw;
+}
+
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 0;
+}
+
+.ritual-ring {
+  position: fixed;
+  border-radius: 50%;
+  border: 1px solid rgba(110, 85, 155, 0.12);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ritual-ring--1 {
+  width: min(90vw, 720px);
+  height: min(90vw, 720px);
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow:
+    inset 0 0 60px rgba(110, 85, 155, 0.08),
+    0 0 80px rgba(0, 0, 0, 0.3);
+}
+
+.ritual-ring--2 {
+  width: min(70vw, 520px);
+  height: min(70vw, 520px);
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%) rotate(12deg);
+  border-color: rgba(160, 150, 190, 0.14);
+}
+
+.site-header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 3rem 1.25rem 2rem;
+}
+
+.candle-row {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.candle {
+  width: 10px;
+  height: 28px;
+  background: linear-gradient(180deg, var(--bone) 0%, var(--bone-dim) 100%);
+  border-radius: 2px 2px 4px 4px;
+  box-shadow:
+    0 -8px 12px var(--blood-bright),
+    0 -4px 20px rgba(150, 120, 200, 0.6);
+  position: relative;
+}
+
+.candle::after {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 14px;
+  background: radial-gradient(circle at 50% 100%, #d4c4f8 0%, #8b72b8 42%, transparent 72%);
+  border-radius: 50% 50% 40% 40%;
+  filter: blur(0.5px);
+  animation: flicker 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 0.85;
+    transform: translateX(-50%) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+.eyeline {
+  font-family: "IM Fell English", Georgia, serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: 0.35em;
+  color: var(--bone-dim);
+  margin: 0 0 0.75rem;
+  opacity: 0.85;
+}
+
+.site-title {
+  font-family: Cinzel, "Times New Roman", serif;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--bone);
+  text-shadow:
+    0 0 40px rgba(120, 95, 170, 0.4),
+    0 2px 0 var(--wine),
+    0 4px 24px var(--shadow);
+}
+
+.site-tagline {
+  font-family: "IM Fell English", Georgia, serif;
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--gold);
+  margin: 0.75rem 0 0;
+  text-shadow: 0 0 20px rgba(180, 165, 120, 0.3);
+}
+
+.main {
+  position: relative;
+  z-index: 1;
+  max-width: 72rem;
+  margin: 2rem auto 1.25rem;
+  padding: 0.75rem clamp(1.25rem, 4vw, 2.5rem) 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Home hero: optimized WebP (+ PNG fallback); transparent PNG — no frame */
+.hero-banner {
+  margin: 0;
+  line-height: 0;
+}
+
+.hero-banner picture {
+  display: block;
+  width: 100%;
+  max-width: 82%;
+  margin: 0 auto;
+}
+
+.hero-banner__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(42vh, 400px);
+  margin: 0 auto;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.site-header--after-hero {
+  padding-top: 1.5rem;
+}
+
+.card {
+  font-family: "Chelsea Market", cursive;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--parchment-ink);
+  background:
+    linear-gradient(185deg, rgba(255, 252, 248, 0.42) 0%, transparent 42%),
+    radial-gradient(ellipse 90% 55% at 15% 20%, rgba(130, 110, 150, 0.1) 0%, transparent 58%),
+    radial-gradient(ellipse 70% 50% at 88% 78%, rgba(95, 80, 70, 0.1) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 35% at 50% 50%, rgba(100, 85, 120, 0.05) 0%, transparent 65%),
+    linear-gradient(168deg, #ebe4d8 0%, #e0d8cc 38%, #d6cec4 72%, #cec4b8 100%);
+  border: 1px solid rgba(75, 68, 88, 0.38);
+  border-radius: 3px;
+  box-shadow:
+    0 10px 36px rgba(0, 0, 0, 0.38),
+    0 1px 0 rgba(255, 255, 255, 0.35) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Inner rule like inked frame on manuscript */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(70, 62, 78, 0.22);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 0;
+  box-shadow: inset 0 0 32px rgba(45, 40, 55, 0.08);
+}
+
+/* Paper grain — fine noise (high baseFrequency = smaller specks) */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.card__inner {
+  position: relative;
+  z-index: 1;
+  padding: 1.75rem 1.5rem;
+}
+
+/* Typography on parchment */
+.card .section-title {
+  font-family: "Chelsea Market", cursive;
+  color: var(--parchment-accent);
+}
+
+.card .facts__label {
+  font-family: "Chelsea Market", cursive;
+  color: var(--parchment-ink-muted);
+}
+
+.card .facts__value {
+  color: var(--parchment-ink);
+}
+
+.card .prose strong {
+  font-size: 1.07em;
+  color: var(--parchment-ink);
+}
+
+.card .prose figure figcaption {
+  color: var(--parchment-ink-muted);
+}
+
+/* Markdown links: purple ink on parchment */
+.card .prose a {
+  color: var(--parchment-accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(90, 74, 110, 0.38);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.card .prose a:hover {
+  color: var(--accent-deep);
+  border-bottom-color: rgba(61, 45, 85, 0.55);
+}
+
+.card .prose a:focus-visible {
+  outline: 2px solid rgba(107, 82, 144, 0.45);
+  outline-offset: 2px;
+}
+
+.card .prose a:visited {
+  color: #6b5c7c;
+  border-bottom-color: rgba(107, 92, 124, 0.32);
+}
+
+.card .prose a:visited:hover {
+  color: var(--accent-deep);
+  border-bottom-color: rgba(61, 45, 85, 0.5);
+}
+
+/* Lists: manuscript body + purple markers */
+.card .prose ul,
+.card .prose ol {
+  margin: 0 0 1rem;
+  padding-left: 2.15rem;
+  color: var(--parchment-ink);
+}
+
+.card .prose li {
+  margin: 0.3em 0;
+  padding-left: 0.55em;
+}
+
+.card .prose li::marker {
+  color: var(--parchment-accent);
+}
+
+.card .prose ol li::marker {
+  font-weight: 600;
+  color: #4f4262;
+}
+
+.card .prose li > ul,
+.card .prose li > ol {
+  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+
+.card .prose ul ul {
+  list-style-type: circle;
+}
+
+.card .prose ul ul ul {
+  list-style-type: square;
+}
+
+/* Dark torn-note callout (not a “flash banner”) */
+.card .prose .info-banner-wrap {
+  margin: 0.35rem 0 1.35rem;
+  transform: rotate(-0.45deg);
+  filter: drop-shadow(3px 8px 18px rgba(6, 4, 12, 0.5));
+}
+
+.card .prose .info-banner {
+  position: relative;
+  margin: 0;
+  padding: 1.1rem 1.4rem 1.2rem 1.55rem;
+  color: rgba(236, 232, 245, 0.94);
+  /* Purple wash on torn right edge + deep stone panel */
+  background:
+    linear-gradient(
+      to left,
+      rgba(140, 115, 195, 0.4) 0%,
+      rgba(85, 65, 130, 0.22) 6%,
+      transparent 12%
+    ),
+    linear-gradient(172deg, #383244 0%, #2a2632 42%, #1c1a24 100%);
+  /* Straight left / top / bottom; torn right — many shallow notches, irregular depth & spacing (slightly angled tear) */
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    99.35% 3.5%,
+    100% 7%,
+    98.9% 10.5%,
+    99.75% 14%,
+    100% 17.5%,
+    99.05% 21%,
+    100% 24.5%,
+    98.65% 28%,
+    99.5% 31.5%,
+    100% 35%,
+    99.2% 38.5%,
+    98.95% 42%,
+    100% 45.5%,
+    99.45% 49%,
+    100% 52.5%,
+    98.8% 56%,
+    99.65% 59.5%,
+    100% 63%,
+    99.1% 66.5%,
+    100% 70%,
+    98.7% 73.5%,
+    99.85% 77%,
+    100% 80.5%,
+    99.25% 84%,
+    100% 87.5%,
+    98.95% 91%,
+    99.55% 94.5%,
+    100% 98%,
+    99.15% 100%,
+    0% 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.card .prose .info-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.card .prose .info-banner__inner {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: 1.06em;
+  line-height: 1.58;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.card .prose .info-banner__inner strong {
+  color: #f4f1fa;
+  font-weight: 600;
+}
+
+.card .prose .info-banner a {
+  color: var(--accent-bright);
+  border-bottom-color: rgba(180, 155, 220, 0.4);
+}
+
+.card .prose .info-banner a:hover {
+  color: #f0ecf8;
+  border-bottom-color: rgba(230, 220, 250, 0.55);
+}
+
+.card .prose .info-banner a:focus-visible {
+  outline: 2px solid rgba(180, 155, 220, 0.65);
+  outline-offset: 2px;
+}
+
+.card .prose .info-banner a:visited {
+  color: #c4b0e0;
+  border-bottom-color: rgba(160, 140, 200, 0.35);
+}
+
+.card .prose .info-banner a:visited:hover {
+  color: #f0ecf8;
+  border-bottom-color: rgba(230, 220, 250, 0.5);
+}
+
+.card .prose .info-banner__inner > *:first-child {
+  margin-top: 0;
+}
+
+.card .prose .info-banner__inner > *:last-child {
+  margin-bottom: 0;
+}
+
+.card .prose .info-banner__inner p {
+  margin: 0 0 0.5rem;
+}
+
+.card .prose .info-banner__inner p:last-child {
+  margin-bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card .prose .info-banner-wrap {
+    transform: none;
+    filter: drop-shadow(2px 4px 12px rgba(6, 4, 12, 0.45));
+  }
+}
+
+/* Dinner menu table (foods-drinks) */
+.card .prose .table-scroll {
+  width: 100%;
+  margin: 0.35rem 0 1.15rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.card .prose table.dinner-menu {
+  width: 100%;
+  min-width: min(100%, 18rem);
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.card .prose .dinner-menu th,
+.card .prose .dinner-menu td {
+  border: 1px solid rgba(75, 65, 95, 0.28);
+  padding: 0.75rem 0.95rem;
+  vertical-align: top;
+  text-align: left;
+  color: var(--parchment-ink);
+}
+
+.card .prose .dinner-menu thead th {
+  background: rgba(90, 74, 110, 0.14);
+  color: var(--parchment-accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.card .prose .dinner-menu thead th:first-child {
+  width: 26%;
+  min-width: 7.25rem;
+}
+
+.card .prose .dinner-menu thead th:last-child {
+  width: 74%;
+}
+
+.card .prose .dinner-menu tbody th[scope="row"] {
+  width: 26%;
+  min-width: 7.25rem;
+  background: rgba(255, 252, 248, 0.45);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--parchment-ink);
+}
+
+.card .prose .dinner-menu__date {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--parchment-ink-muted);
+  letter-spacing: 0.02em;
+}
+
+.card .prose .dinner-menu tbody td {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.card .prose .dinner-menu tbody td strong {
+  font-size: 1.07em;
+  color: var(--parchment-ink);
+}
+
+.card .prose .dinner-menu__sub {
+  display: inline;
+  font-size: 0.92em;
+  font-weight: 500;
+  color: var(--parchment-ink-muted);
+}
+
+.card .prose .dinner-menu__desc {
+  margin: 0.45rem 0 0;
+  font-size: 0.96rem;
+  line-height: 1.5;
+  color: var(--parchment-ink);
+}
+
+.card .prose .dinner-menu__desc:last-child {
+  margin-bottom: 0;
+}
+
+/* Prices table (prices.md) */
+.card .prose table.prices-table {
+  width: 100%;
+  min-width: min(100%, 20rem);
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.card .prose .prices-table th,
+.card .prose .prices-table td {
+  border: 1px solid rgba(75, 65, 95, 0.28);
+  padding: 0.75rem 0.95rem;
+  vertical-align: top;
+  text-align: left;
+  color: var(--parchment-ink);
+}
+
+.card .prose .prices-table thead th {
+  background: rgba(90, 74, 110, 0.14);
+  color: var(--parchment-accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.card .prose .prices-table thead th:nth-child(1) {
+  width: 28%;
+  min-width: 6.5rem;
+}
+
+.card .prose .prices-table thead th:nth-child(2) {
+  width: 16%;
+  min-width: 4.5rem;
+  text-align: center;
+}
+
+.card .prose .prices-table thead th:nth-child(3) {
+  width: 56%;
+}
+
+.card .prose .prices-table tbody th[scope="row"] {
+  background: rgba(255, 252, 248, 0.45);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--parchment-ink);
+}
+
+.card .prose .prices-table tbody th[scope="row"] strong {
+  font-size: 1.07em;
+}
+
+.card .prose .prices-table tbody td {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.card .prose .prices-table td.prices-table__price {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.card .prose .prices-table__includes {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.card .prose .prices-table__includes li {
+  margin: 0.2em 0;
+}
+
+.card .prose .prices-table__includes li::marker {
+  color: var(--parchment-accent);
+}
+
+/* Address / subline directly under an h2 in content pages */
+.card .prose .text-center {
+  text-align: center;
+}
+
+.card .prose .headline-subtext {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--parchment-ink-muted);
+  letter-spacing: 0.04em;
+}
+
+.card .prose h2:has(+ .headline-subtext) {
+  margin-block-end: 0;
+  margin-bottom: 0.22rem;
+  padding-bottom: 0;
+  line-height: 1.22;
+}
+
+.card .prose h2 + .headline-subtext {
+  margin-top: -0.2rem;
+}
+
+.card .prose h2 {
+  margin-top: 1.05rem;
+  margin-bottom: 0.55rem;
+  line-height: 1.28;
+}
+
+.card .prose .page-title + h2 {
+  margin-top: 0.8rem;
+}
+
+.card .prose h3 {
+  margin-top: 0.9rem;
+  margin-bottom: 0.45rem;
+  line-height: 1.3;
+}
+
+.card .prose h4 {
+  margin-top: 0.8rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.35;
+}
+
+.card .pill {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(85, 75, 100, 0.35);
+  color: var(--parchment-ink);
+}
+
+.card .contact-lead {
+  color: var(--parchment-ink-muted);
+}
+
+.card .contact-email a:hover {
+  color: var(--parchment-ink);
+}
+
+.card .page-title {
+  font-family: "Chelsea Market", cursive;
+  color: var(--parchment-accent);
+  border-bottom-color: rgba(80, 68, 95, 0.3);
+  margin-bottom: 1.05rem;
+  margin-top: 0.15rem;
+  padding-bottom: 0.62rem;
+}
+
+.card--hero .card__inner {
+  text-align: center;
+}
+
+/* Home: countdown on page background (no card) — JS: static/js/countdown.js */
+.home-countdown {
+  text-align: center;
+  padding: 0.25rem 0 0.5rem;
+}
+
+.home-countdown__intro {
+  font-family: "IM Fell English", Georgia, serif;
+  font-style: italic;
+  font-size: clamp(2.75rem, 7vw, 3.5rem);
+  color: var(--bone);
+  margin: 0 0 1rem;
+  line-height: 1.45;
+}
+
+.home-countdown__meta {
+  font-size: clamp(1.15rem, 2.8vw, 1.4rem);
+  line-height: 1.55;
+  color: var(--bone);
+  margin: 0.35rem 0 0;
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home-countdown__meta strong {
+  font-size: 1.07em;
+  font-weight: 700;
+}
+
+.home-countdown .countdown {
+  margin: 0 0 1rem;
+}
+
+.countdown__heading {
+  font-family: Cinzel, serif;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 0.35rem;
+}
+
+.countdown__sub {
+  margin: 0 0 1.25rem;
+  font-size: 0.82rem;
+  color: var(--bone-dim);
+}
+
+.countdown__grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.5rem 0.65rem;
+}
+
+.countdown__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.65rem 0.75rem;
+  min-width: 5rem;
+  background: rgba(22, 20, 30, 0.5);
+  border: 1px solid rgba(110, 85, 155, 0.35);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(243, 230, 216, 0.05);
+}
+
+.countdown__value {
+  font-family: Cinzel, "Times New Roman", serif;
+  font-weight: 700;
+  font-size: clamp(2.35rem, 6.5vw, 3.1rem);
+  line-height: 1.1;
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 24px rgba(110, 85, 155, 0.35);
+}
+
+.countdown__label {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 0.45rem;
+}
+
+.countdown__sep {
+  font-family: Cinzel, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgba(110, 85, 155, 0.65);
+  padding-bottom: 0.55rem;
+  line-height: 1;
+}
+
+.countdown__done {
+  font-family: "IM Fell English", Georgia, serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--blood-bright);
+  margin: 0;
+  text-shadow: 0 0 24px rgba(150, 120, 200, 0.35);
+}
+
+@media (max-width: 380px) {
+  .countdown__sep {
+    display: none;
+  }
+
+  .countdown__grid {
+    gap: 0.5rem;
+  }
+}
+
+.facts {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.facts li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 0.75rem;
+  align-items: baseline;
+}
+
+.facts__label {
+  font-family: Cinzel, serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+}
+
+.facts__value {
+  font-weight: 600;
+  color: var(--bone);
+}
+
+.btn {
+  display: inline-block;
+  font-family: Cinzel, serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.85rem 1.75rem;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn--primary {
+  color: var(--bone);
+  background: linear-gradient(180deg, var(--blood-bright) 0%, var(--blood) 100%);
+  box-shadow:
+    0 4px 16px rgba(110, 85, 155, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 24px rgba(110, 85, 155, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn--primary:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.prose {
+  font-size: 1.125rem;
+  display: flow-root; /* contain floats for text wrap */
+}
+
+.prose .prose-float-end {
+  clear: both;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Default images in Markdown */
+.prose img {
+  height: auto;
+  max-width: 100%;
+}
+
+/* --- Image alignment (Markdown: ![alt](url){.align-left} etc.) --- */
+.prose img.align-left,
+.prose figure.align-left {
+  float: left;
+  clear: left;
+  max-width: min(52%, 18rem);
+  width: auto;
+  margin: 0.2rem 1.15rem 0.75rem 0;
+}
+
+.prose img.align-right,
+.prose figure.align-right {
+  float: right;
+  clear: right;
+  max-width: min(52%, 18rem);
+  width: auto;
+  margin: 0.2rem 0 0.75rem 1.15rem;
+}
+
+/* Stone shadow + stronger purple glow (no border) */
+.prose img.align-left,
+.prose img.align-right {
+  border-radius: 5px;
+  border: none;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.42),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 0 28px rgba(140, 110, 200, 0.28),
+    0 0 56px rgba(105, 75, 155, 0.18);
+}
+
+.prose figure.align-left,
+.prose figure.align-right {
+  margin-top: 0.2rem;
+  margin-bottom: 0.75rem;
+  border-radius: 5px;
+  border: none;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.42),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 0 28px rgba(140, 110, 200, 0.28),
+    0 0 56px rgba(105, 75, 155, 0.18);
+  padding: 3px;
+  background: linear-gradient(
+    160deg,
+    rgba(38, 34, 48, 0.35) 0%,
+    rgba(28, 26, 36, 0.2) 100%
+  );
+}
+
+.prose figure.align-left img,
+.prose figure.align-right img {
+  width: 100%;
+  display: block;
+  border-radius: 3px;
+}
+
+.prose figure.align-left figcaption,
+.prose figure.align-right figcaption {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--bone-dim);
+  text-align: left;
+}
+
+.prose figure.align-right figcaption {
+  text-align: right;
+}
+
+/* Centered block: text continues below full width (no side wrap) */
+.prose img.align-center,
+.prose figure.align-center {
+  float: none;
+  clear: both;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.prose figure.align-center {
+  text-align: center;
+}
+
+.prose figure.align-center img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prose figure.align-center figcaption {
+  margin-top: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--bone-dim);
+}
+
+/* Full width of the prose column */
+.prose img.full-width,
+.prose figure.full-width {
+  float: none;
+  clear: both;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0.75rem 0 1rem;
+}
+
+.prose figure.full-width img {
+  width: 100%;
+  display: block;
+}
+
+.prose figure.full-width figcaption {
+  margin-top: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--bone-dim);
+  text-align: center;
+}
+
+/* Break out to viewport width (optional; use sparingly) */
+.prose img.bleed,
+.prose figure.bleed {
+  float: none;
+  clear: both;
+  display: block;
+  width: 100vw;
+  max-width: 100vw;
+  position: relative;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  margin: 0.75rem 0 1rem;
+}
+
+.prose figure.bleed img {
+  width: 100%;
+  display: block;
+}
+
+.prose figure.bleed figcaption {
+  padding: 0 1.25rem;
+  margin-top: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--bone-dim);
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .prose img.align-left,
+  .prose img.align-right,
+  .prose figure.align-left,
+  .prose figure.align-right {
+    float: none;
+    display: block;
+    max-width: 100%;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .prose figure.align-right figcaption,
+  .prose figure.align-left figcaption {
+    text-align: center;
+  }
+}
+
+.prose p {
+  margin: 0 0 1rem;
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.prose strong {
+  font-size: 1.07em;
+  color: var(--bone);
+  font-weight: 600;
+}
+
+.section-title {
+  font-family: Cinzel, serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.pill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.9rem;
+  border: 1px solid rgba(110, 85, 155, 0.4);
+  border-radius: 999px;
+  background: rgba(22, 20, 30, 0.45);
+  color: var(--bone-dim);
+}
+
+.card--contact {
+  text-align: center;
+}
+
+.contact-lead {
+  margin: 0 0 0.75rem;
+  color: var(--bone-dim);
+  font-size: 1.0625rem;
+}
+
+.contact-email a {
+  color: var(--blood-bright);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(150, 120, 200, 0.4);
+}
+
+.contact-email a:hover {
+  color: var(--bone);
+  border-bottom-color: var(--bone);
+}
+
+.site-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem 1.25rem 3rem;
+  border-top: 1px solid rgba(110, 85, 155, 0.15);
+}
+
+.footer-verse {
+  font-family: "IM Fell English", Georgia, serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--bone-dim);
+  margin: 0 0 1rem;
+}
+
+.footer-copy {
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: rgba(155, 150, 170, 0.5);
+  margin: 0;
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}
+
+@media (min-width: 640px) {
+  .facts li {
+    justify-content: space-between;
+    max-width: 18rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
