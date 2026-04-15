@@ -39,5 +39,5 @@ Here you will find the Peterhof house rules. All participants must adhere to the
 
 ### Links
 - [House Rules](https://www.gruppen.haus/infomaterial/Petershof_Hausordnung.pdf)
-- [Plan]([https://www.gruppen.haus/infomaterial/Petershof_Lageplan_Raumplan.pdf)
+- [Plan](https://www.gruppen.haus/infomaterial/Petershof_Lageplan_Raumplan.pdf)
 
