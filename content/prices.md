@@ -46,7 +46,9 @@ The Sponsor Upgrade not only supports the convention itself, but also offers a u
     <tr>
       <th scope="row"><strong>T-Shirt</strong></th>
       <td class="prices-table__price">15&nbsp;€</td>
-      <td>T-Shirt</td>
+      <td>
+      <img src="/img/conshirt.png" style="width: 100%; max-width: 200px;" alt="T-Shirt" />
+      </td>
     </tr>
   </tbody>
 </table>
