@@ -19,7 +19,7 @@ OpoCon will provide you with a variety of food and drinks, all included in the t
 
 **Also:** Want to stuff yourself with food **after midnight?** There will be **leftovers** for you to grab and enjoy, just keep everything clean. We will also provide smaller snacks like chips, popcorn, etc.
 
-We offer **vegetarian and vegan** options so you don’t have to worry about ever going hungry.
+We offer **vegetarian** options so you don’t have to worry about ever going hungry.
 
 ## Dinner menu
 <p class="headline-subtext">Served at <strong>17:00</strong> each day.</p>
