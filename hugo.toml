@@ -1,10 +1,10 @@
 baseURL = 'https://opocon.gay/'
 languageCode = 'en-us'
-title = 'Opocon'
+title = 'OpoCon'
 disableKinds = ['taxonomy', 'term']
 
 [params]
-  description = 'Opocon - Cult of the Opo'
+  description = 'OpoCon - Cult of the Opo'
   tagline = 'Cult of the Opo'
   year = '2026'
   when = '11–15 June 2026'
@@ -17,7 +17,7 @@ disableKinds = ['taxonomy', 'term']
   social_bluesky = ''
   email = 'hello@opocon.example'
   # Hero banner (static/img/whoreship.webp + fallbacks)
-  hero_banner_alt = 'Opocon - convention artwork'
+  hero_banner_alt = 'OpoCon - convention artwork'
 
 [markup.goldmark.renderer]
   unsafe = true
