@@ -64,3 +64,5 @@ and more...
   </tbody>
 </table>
 </div>
+
+All times are in UTC+2 / German time.
