@@ -1,4 +1,7 @@
   <footer class="site-footer">
+    {{ if eq .RelPermalink "/prices/" }}
+      <a href="/ewvzewvz/"><img src="{{ "img/sign2.png" | relURL }}" alt="Sign" height="180"></a>
+    {{ end }}
     <p class="footer-verse">The cult of the Opo remembers. See you at {{ .Site.Title }}.</p>
     <p class="footer-copy">&copy; {{ now.Year }} {{ .Site.Title }}.</p>
   </footer>
